@@ -12,7 +12,11 @@ export function renderToday(entries) {
   if (!todayEntries.length) {
     return emptyState("No classes scheduled today", "Add your weekly timetable and today's classes will appear here.", `<a class="button" href="#/timetable">Add Timetable</a>`);
   }
-  return `<div class="timeline">${todayEntries.map(renderClassItem).join("")}</div>`;
+  const remainingEntries = todayEntries.filter((entry) => isCurrentClass(entry) || isFutureClass(entry));
+  if (!remainingEntries.length) {
+    return emptyState("No more classes today", "Your remaining schedule is clear. The full week is still available in Timetable.", `<a class="button" href="#/timetable">View Weekly Timetable</a>`);
+  }
+  return `<div class="timeline">${remainingEntries.map(renderClassItem).join("")}</div>`;
 }
 
 export function renderClassItem(entry, editable = false) {
@@ -34,9 +38,19 @@ function isCurrentClass(entry) {
   if (entry.day !== today || !entry.startTime || !entry.endTime) return false;
   const nowDate = new Date();
   const current = nowDate.getHours() * 60 + nowDate.getMinutes();
-  const [sh, sm] = entry.startTime.split(":").map(Number);
-  const [eh, em] = entry.endTime.split(":").map(Number);
-  return current >= sh * 60 + sm && current <= eh * 60 + em;
+  return current >= minutesFromTime(entry.startTime) && current <= minutesFromTime(entry.endTime);
+}
+
+function isFutureClass(entry) {
+  if (entry.day !== todayName() || !entry.startTime) return false;
+  const nowDate = new Date();
+  const current = nowDate.getHours() * 60 + nowDate.getMinutes();
+  return minutesFromTime(entry.startTime) > current;
+}
+
+function minutesFromTime(time) {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
 }
 
 export async function timetablePage() {
