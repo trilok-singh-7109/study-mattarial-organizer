@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Study Organizer</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/responsive.css">
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <header class="topbar">
+        <a href="#/" class="brand" aria-label="Study Organizer dashboard">
+          <span class="brand-mark" aria-hidden="true">SO</span>
+          <span>
+            <strong>Study Organizer</strong>
+            <small>Local study desk</small>
+          </span>
+        </a>
+        <div class="topbar-actions">
+          <label class="search-box">
+            <span class="sr-only">Search study materials</span>
+            <input id="globalSearch" type="search" placeholder="Search study materials...">
+          </label>
+          <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle theme">◐</button>
+          <a class="icon-button" href="#/settings" aria-label="Open settings">⚙</a>
+        </div>
+      </header>
+
+      <aside class="sidebar" aria-label="Primary navigation">
+        <nav>
+          <a href="#/" data-nav="/">Dashboard</a>
+          <a href="#/timetable" data-nav="/timetable">Timetable</a>
+          <a href="#/subjects" data-nav="/subjects">Subjects</a>
+          <a href="#/reminders" data-nav="/reminders">Reminders</a>
+          <a href="#/settings" data-nav="/settings">Settings</a>
+        </nav>
+      </aside>
+
+      <main id="view" class="view" tabindex="-1"></main>
+    </div>
+
+    <div id="modalRoot" class="modal-root" aria-live="polite"></div>
+    <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

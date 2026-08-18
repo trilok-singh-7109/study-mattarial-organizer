@@ -1,0 +1,3 @@
+{
+  "note": "Optional development seed only. The production app starts with an empty IndexedDB database."
+}
