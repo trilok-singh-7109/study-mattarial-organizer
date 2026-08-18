@@ -207,6 +207,12 @@ h3 {
   font-size: 1rem;
 }
 
+.card h3,
+.material-row h3,
+.reminder-text {
+  overflow-wrap: anywhere;
+}
+
 .muted { color: var(--muted); }
 
 .grid {
